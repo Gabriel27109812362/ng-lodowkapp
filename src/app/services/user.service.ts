@@ -21,7 +21,6 @@ export class UserService {
   }
 
   public updateItem(user: User) {
-
     const newStore = this.users.getValue().filter((element) => {
       return element.id !== user.id;
     });
