@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 import {Image} from '../interfaces/image';
-import {filter} from 'rxjs/operators';
+import {filter, find} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -37,9 +37,18 @@ export class ImageService {
     this.images.next([...newStore]);
   }
 
+
+  public getItemById(id: string) {
+    return this.images.pipe(
+      find(images => images === images.filter(element => {
+        return element.id === id;
+      }))
+    );
+  }
+
   public getItemsByUserId(userId: string) {
     return this.images.pipe(
-      filter(userSet => userSet === userSet.filter(element => {
+      filter(images => images === images.filter(element => {
         return element.userId === userId;
       }))
     );

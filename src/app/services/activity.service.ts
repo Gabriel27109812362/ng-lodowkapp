@@ -38,7 +38,7 @@ export class ActivityService {
 
   public getItemById(id: string) {
     return this.activities.pipe(
-      find(activity => activity === activity.filter(element => {
+      find(activities => activities === activities.filter(element => {
         return element.id === id;
       }))
     );
