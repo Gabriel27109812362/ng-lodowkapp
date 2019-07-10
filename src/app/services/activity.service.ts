@@ -60,10 +60,26 @@ export class ActivityService {
     );
   }
 
-  public getItemsByPriority(date: Date) {
+  public getItemsBefore(date: Date) {
     return this.activities.pipe(
       filter(activities => activities === activities.filter(element => {
-        return element.date === date;
+        return element.date.valueOf() < date.valueOf();
+      }))
+    );
+  }
+
+  public getItemsAfter(date: Date) {
+    return this.activities.pipe(
+      filter(activities => activities === activities.filter(element => {
+        return element.date.valueOf() >= date.valueOf();
+      }))
+    );
+  }
+
+  public getItemsByPriority(priority: number) {
+    return this.activities.pipe(
+      filter(activities => activities === activities.filter(element => {
+        return element.priority === priority;
       }))
     );
   }
