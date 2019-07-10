@@ -16,11 +16,11 @@ export class UserService {
     return this.users;
   }
 
-  public insertItems(user: User) {
+  public insertItem(user: User) {
     this.users.next([...this.users.getValue(), user]);
   }
 
-  public updateItems(user: User) {
+  public updateItem(user: User) {
 
     const newStore = this.users.getValue().filter((element) => {
       return element.id !== user.id;

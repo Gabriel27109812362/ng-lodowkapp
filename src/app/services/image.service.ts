@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 import {Image} from '../interfaces/image';
+import {filter} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -17,11 +18,11 @@ export class ImageService {
     return this.images;
   }
 
-  public insertItems(image: Image) {
+  public insertItem(image: Image) {
     this.images.next([...this.images.getValue(), image]);
   }
 
-  public updateItems(image: Image) {
+  public updateItem(image: Image) {
 
     const newStore = this.images.getValue().filter((element) => {
       return element.id !== image.id;
@@ -34,5 +35,13 @@ export class ImageService {
       return element.id !== image.id;
     });
     this.images.next([...newStore]);
+  }
+
+  public getItemsByUserId(userId: string) {
+    return this.images.pipe(
+      filter(userSet => userSet === userSet.filter(element => {
+        return element.userId === userId;
+      }))
+    );
   }
 }

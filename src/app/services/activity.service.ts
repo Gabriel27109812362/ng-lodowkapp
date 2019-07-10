@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 import {Activity} from '../interfaces/activity';
+import {filter, find} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +17,11 @@ export class ActivityService {
     return this.activities;
   }
 
-  public insertItems(activity: Activity) {
+  public insertItem(activity: Activity) {
     this.activities.next([...this.activities.getValue(), activity]);
   }
 
-  public updateItems(activity: Activity) {
+  public updateItem(activity: Activity) {
 
     const newStore = this.activities.getValue().filter((element) => {
       return element.id !== activity.id;
@@ -34,5 +35,38 @@ export class ActivityService {
     });
     this.activities.next([...newStore]);
   }
+
+  public getItemById(id: string) {
+    return this.activities.pipe(
+      find(activity => activity === activity.filter(element => {
+        return element.id === id;
+      }))
+    );
+  }
+
+  public getItemsByUserId(userId: string) {
+    return this.activities.pipe(
+      filter(activities => activities === activities.filter(element => {
+        return element.userId === userId;
+      }))
+    );
+  }
+
+  public getItemsByDate(date: Date) {
+    return this.activities.pipe(
+      filter(activities => activities === activities.filter(element => {
+        return element.date === date;
+      }))
+    );
+  }
+
+  public getItemsByPriority(date: Date) {
+    return this.activities.pipe(
+      filter(activities => activities === activities.filter(element => {
+        return element.date === date;
+      }))
+    );
+  }
+
 
 }
