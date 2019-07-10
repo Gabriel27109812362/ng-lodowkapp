@@ -18,7 +18,7 @@ import { ColorComponent } from './components/color/color.component';
     AppComponent,
     StartComponent,
     RegisterComponent,
-    RegisterinputComponent
+    RegisterinputComponent,
     StartBackgroundComponent,
     FridgeComponent,
     ProductsComponent,
